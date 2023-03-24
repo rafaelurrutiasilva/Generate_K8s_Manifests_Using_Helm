@@ -1,0 +1,26 @@
+global:
+  imageRegistry: "harbor.example.org"
+image:
+  repository: "internal/bitnami/argo-cd"
+  tag: "2.6.7"
+
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+redis:
+  image:
+    repository: "public/bitnami/redis"
+    tag: "7.0.10"
+server:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: "example-internal-ca"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    ingressClassName: "nginx"
+    hostname: "argo-cd.example.org"
+    tls: true
+  extraArgs:
+    - --insecure
