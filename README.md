@@ -1,2 +1,2 @@
-# Generate_Manifests_by_Helm
+# Generate Kubernetes Manifests Using Helm
 Bash script to generate 
