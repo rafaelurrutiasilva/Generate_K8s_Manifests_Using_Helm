@@ -13,7 +13,7 @@ DEBUG=1
 [ -d "$MANIFEST_DIR_NAME" ] || mkdir -p $MANIFEST_DIR_NAME
 
 # Helm workload
-function helmWorkload {
+helmWorkload() {
 	[[ $DEBUG -eq 1 ]] && echo "DEBUGING... Running helmWorkload"
 
 	helm repo add $HELM_REPO_NAME $HELM_REPO_URL
@@ -22,7 +22,7 @@ function helmWorkload {
 		      --create-namespace --output-dir $MANIFEST_DIR_NAME --include-crds --values $VALUEFILE --debug
 }
 
-function genSealedSecret {
+genSealedSecret() {
 	for FILE in $(grep -rw "kind:" $MANIFEST_DIR_NAME |grep -w Secret |awk -F":" '{print$1}')
 	do
 		SEALEDFILE="$(dirname $FILE)/sealed-$(basename $FILE)"
