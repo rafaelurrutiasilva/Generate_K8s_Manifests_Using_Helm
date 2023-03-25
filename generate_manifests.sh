@@ -29,7 +29,7 @@ printHelp() {
         echo "This Bash script generates Kubernetes manifests using Helm and Kubeseal."
 	echo "It will encrypt secrets using Kubeseal and remove the files that contain secrets in clear text."
 	
-	echo "If you are generating complete new secrets and want to sealed it then you have to use '--update n'."
+	echo "If you are generating complete new secrets and want to sealed it then you have to use '--update n'. If not then the old one already sealed will be keeped for you."
         echo ""
         echo "Use of $PROGRAM:"
         echo ""
