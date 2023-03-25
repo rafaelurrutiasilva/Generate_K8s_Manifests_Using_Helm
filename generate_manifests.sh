@@ -9,13 +9,27 @@ DEBUG=1
 PROGRAM=`basename $0`
 VERSION="2023-03-25, Rafael.Urrutia.S@gmail.com"
 
+# Return codes
+STATE_OK=0
+STATE_WARNING=1
+STATE_CRITICAL=2
+STATE_UNKNOWN=3
+
 # Source initial variables.
-. ./manifests.ini
+if [[ -f manifests.ini ]];then
+	. ./manifests.ini 
+else
+	echo "You are missing the 'manifests.ini' file"
+	exit $STATE_CRITICAL
+fi
 
 checkBasics(){
+	STATE=0
 	[[ -f $VALUEFILE ]] || echo "You are missing the '$VALUEFILE' file!" 
 	[[ $(which kubeseal 2> /dev/null ) ]] || echo "You have to have 'kubeseal' installed!"
 	[[ $(which helm 2> /dev/null ) ]] || echo "You have to have 'helm' installed!"
+	STATE=$?
+	[[ $STATE -eq 1 ]] && exit $STATE_CRITICAL
 }
 
 printHelp() {
@@ -58,6 +72,6 @@ genSealedSecret() {
 
 # Run functions
 checkBasics
-#printHelp
+printHelp
 #helmWorkload
 #genSealedSecret
