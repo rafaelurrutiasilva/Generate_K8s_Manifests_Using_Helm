@@ -11,3 +11,7 @@ The script will generate manifest files using the Helm and the values you put in
 ## How to use
 Get help from the script by:
 `$ generate_manifests.sh --help`
+
+## Exampel
+You will find here an example for generate Kubernetes manifest for the application **Argo CD**.<br>
+See the manifests.ini and values.yaml files for more details.
