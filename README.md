@@ -14,4 +14,4 @@ Get help from the script by using:
 
 ## Exampel
 You will find here an example for generate Kubernetes manifest for the application **Argo CD**.<br>
-See the manifests.ini and values.yaml files for more details.
+See the [manifests.ini](https://github.com/rafaelurrutiasilva/Generate_K8s_Manifests_Using_Helm/blob/main/manifests.ini) and [values.yaml](https://github.com/rafaelurrutiasilva/Generate_K8s_Manifests_Using_Helm/blob/main/values.yaml) files for more details.
