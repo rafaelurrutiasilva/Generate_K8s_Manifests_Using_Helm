@@ -23,20 +23,15 @@ function helmWorkload {
 }
 
 function genSealedSecret {
-	for FILE in $(grep -r "kind: Secret" $MANIFEST_DIR_NAME |awk -F":" '{print$1}')
+	for FILE in $(grep -rw "kind:" $MANIFEST_DIR_NAME |grep -w Secret |awk -F":" '{print$1}')
 	do
 		SEALEDFILE="$(dirname $FILE)/sealed-$(basename $FILE)"
-		if [[ $DEBUG -eq 1 ]];then
-			echo "DEBUGING... Files to work with and generates"
-			echo $FILE
-			echo $SEALEDFILE
-		fi
+		[[ $DEBUG -eq 1 ]] && echo "DEBUGING... Sealing $FILE"
 		cat $FILE |kubeseal --format yaml --cert $SEALED_SECRETS_PEM_FILE > $SEALEDFILE 
-	done
 
-	if [[ $FIRSTTIMEDEPLOY -eq 1 ]];then
-		rm manifests/argo-cd/templates/argocd-secret.yaml
-	fi
+		[[ $DEBUG -eq 1 ]] && echo "DEBUGING... Deleting $SEALEDFILE"
+		rm $SEALEDFILE
+	done
 }	
 
 # Run functions
